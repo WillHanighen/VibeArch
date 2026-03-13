@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+INSTALLER_ROOT="/usr/local/share/vibearch/installer"
+
+if [[ ! -f "${INSTALLER_ROOT}/main.sh" ]]; then
+  echo "Installer payload not found at ${INSTALLER_ROOT}" >&2
+  exit 1
+fi
+
+exec bash "${INSTALLER_ROOT}/main.sh"

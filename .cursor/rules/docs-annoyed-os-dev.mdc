@@ -1,0 +1,15 @@
+---
+description: Documentation style and quality rules for VibeArch
+globs: **/*.md
+alwaysApply: false
+---
+
+# VibeArch Docs Rule
+
+- Use direct, practical language with maximum annoyed OS-dev energy.
+- Keep docs technically precise; snark should sharpen the message, not replace it.
+- Swearing is allowed when it helps make the point.
+- Every behavior change must include matching doc updates.
+- Include exact commands and expected outcomes.
+- Include common failure modes and recovery commands.
+- Put destructive warnings before the destructive step.

@@ -1,0 +1,55 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 6,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "tray",
+    "pulseaudio",
+    "backlight",
+    "network",
+    "cpu",
+    "memory",
+    "battery"
+  ],
+  "clock": {
+    "format": "{:%a %b %d  %H:%M}",
+    "tooltip-format": "<big>{:%Y-%m-%d}</big>\n<tt>{calendar}</tt>"
+  },
+  "network": {
+    "format-wifi": "WiFi {signalStrength}%",
+    "format-ethernet": "Ethernet",
+    "format-disconnected": "Offline",
+    "tooltip-format": "{ifname} {ipaddr}"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "Muted",
+    "format-icons": {
+      "default": ["Spk", "Spk", "Spk"]
+    },
+    "on-click": "pavucontrol"
+  },
+  "cpu": {
+    "format": "CPU {usage}%"
+  },
+  "memory": {
+    "format": "RAM {}%"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["Bat", "Bat", "Bat", "Bat", "Bat"]
+  },
+  "backlight": {
+    "format": "Light {percent}%"
+  },
+  "tray": {
+    "spacing": 8
+  }
+}

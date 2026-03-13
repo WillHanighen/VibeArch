@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+LOG_FILE="/tmp/vibearch-live-session.log"
+if ! touch "${LOG_FILE}" 2>/dev/null; then
+  LOG_FILE="/root/vibearch-live-session.log"
+  touch "${LOG_FILE}" 2>/dev/null || true
+fi
+
+{
+  echo "---- $(date -Iseconds) vibearch-live-session start uid=$(id -u)"
+} >>"${LOG_FILE}" 2>/dev/null || true
+
+export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=Hyprland
+export QT_QPA_PLATFORM="wayland;xcb"
+export WLR_NO_HARDWARE_CURSORS=1
+export HOME=/root
+export USER=root
+export LOGNAME=root
+
+if [[ -z "${XDG_RUNTIME_DIR:-}" ]]; then
+  export XDG_RUNTIME_DIR="/run/user/0"
+fi
+mkdir -p "${XDG_RUNTIME_DIR}"
+chmod 700 "${XDG_RUNTIME_DIR}" || true
+
+mkdir -p /root/.config
+if [[ -d /usr/local/share/vibearch/config ]]; then
+  rsync -a --delete /usr/local/share/vibearch/config/ /root/.config/ || true
+fi
+
+bootstrap_pacman_keyring() {
+  mkdir -p /etc/pacman.d/gnupg
+  chmod 700 /etc/pacman.d/gnupg || true
+  chown -R root:root /etc/pacman.d/gnupg || true
+
+  if [[ ! -s /etc/pacman.d/gnupg/pubring.gpg ]]; then
+    rm -f /etc/pacman.d/gnupg/*.lock || true
+    if command -v pacman-key >/dev/null 2>&1; then
+      pacman-key --init || return 1
+      pacman-key --populate archlinux || return 1
+    fi
+  fi
+}
+
+if ! bootstrap_pacman_keyring >>"${LOG_FILE}" 2>&1; then
+  {
+    echo "pacman keyring bootstrap failed; pacman operations may fail."
+  } >>"${LOG_FILE}" 2>/dev/null || true
+fi
+
+if [[ -x /usr/local/share/vibearch/scripts/setup-zsh-defaults.sh ]]; then
+  /usr/local/share/vibearch/scripts/setup-zsh-defaults.sh --user root >>"${LOG_FILE}" 2>&1 || true
+fi
+
+# Keep required background services available in the live session.
+systemctl start NetworkManager.service >/dev/null 2>&1 || true
+systemctl start bluetooth.service >/dev/null 2>&1 || true
+systemctl start seatd.service >/dev/null 2>&1 || true
+
+if command -v dbus-run-session >/dev/null 2>&1; then
+  if command -v start-hyprland >/dev/null 2>&1; then
+    exec dbus-run-session -- start-hyprland -- --i-am-really-stupid
+  fi
+  exec dbus-run-session -- Hyprland --i-am-really-stupid
+fi
+
+exec Hyprland --i-am-really-stupid

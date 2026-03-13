@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+WRAPPER="/usr/local/share/vibearch/scripts/fastfetch-wrapper.sh"
+
+if [[ -x "${WRAPPER}" ]]; then
+  exec "${WRAPPER}" "$@"
+fi
+
+exec /usr/bin/fastfetch "$@"

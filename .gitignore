@@ -1,0 +1,31 @@
+# Build artifacts
+out/
+work/
+logs/
+
+# Local runtime and VM state
+tmp/
+
+# Cursor local state (keep sharable rules)
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# Editor/IDE local files
+.idea/
+.vscode/
+
+# OS noise
+
+# why the fuck use macOS? Apple absolutely stopped giving a shit for OS26.x
+.DS_Store
+
+# also windows? you're working on a fucking operation system, ON WINDOWS?!
+# Microsoft stopped giving even more shits way before even apple. Shit went downhill starting at win8
+# but they pulled it togeather for the first few years of win10, but after that? pure AI slop bullshit and
+# anticonsumerist bullshit. pure bullshit.
+Thumbs.db
+
+# Linux noise
+
+# oh wait... there is none.

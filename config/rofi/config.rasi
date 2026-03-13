@@ -1,0 +1,65 @@
+configuration {
+  modi: "drun,run,window";
+  show-icons: true;
+  display-drun: "Apps";
+  drun-display-format: "{name}";
+  terminal: "kitty";
+}
+
+* {
+  bg: #12131aee;
+  bg-alt: #1f2333ee;
+  fg: #e7ecff;
+  fg-dim: #a8b3d6;
+  accent: #8aa4ff;
+  border-col: #4b5d9e;
+}
+
+window {
+  width: 40%;
+  border: 2px;
+  border-color: @border-col;
+  border-radius: 12px;
+  background-color: @bg;
+}
+
+mainbox {
+  children: [inputbar, listview];
+  spacing: 10px;
+  padding: 12px;
+}
+
+inputbar {
+  padding: 8px;
+  border: 0 0 1px 0;
+  border-color: @border-col;
+  children: [prompt, entry];
+}
+
+prompt {
+  text-color: @accent;
+}
+
+entry {
+  text-color: @fg;
+  placeholder-color: @fg-dim;
+}
+
+listview {
+  lines: 10;
+  columns: 1;
+  fixed-height: true;
+  cycle: true;
+  scrollbar: false;
+}
+
+element {
+  padding: 6px;
+  border-radius: 8px;
+  text-color: @fg;
+}
+
+element selected {
+  background-color: @bg-alt;
+  text-color: @accent;
+}
