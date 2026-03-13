@@ -1,7 +1,10 @@
 # VibeArch
 
 VibeArch is an Arch-based live ISO with a guided installer and Hyprland defaults.  
-It exists to avoid “mystery distro bullshit” and keep the build/install flow explicit.
+It is intentionally AI-generated, aggressively vibe-coded, and still wired like a real OS project instead of a demo meme.
+
+Yes, bots helped write huge chunks of this.  
+No, that does **not** mean we trust magic. Everything important is still plain shell, plain configs, reproducible builds, and logs you can read when something (hopefully doesn't) explode.
 
 ## What You Actually Get
 
@@ -13,6 +16,17 @@ It exists to avoid “mystery distro bullshit” and keep the build/install flow
 - live ISO that jumps straight into Hyprland
 - `hyprscrolling` setup through `hyprpm` on first session
 - `fastfetch` preinstalled with VibeArch logos (`assets/logo.svg` + `assets/logo-fastfetch.txt`)
+
+## Vibe-Coded, Not Vibe-Only
+
+- architecture decisions are human-owned; AI is a power tool, not a product manager
+- scripts are committed in readable form, not hidden behind “trust me bro” generators
+- installer steps are explicit and ordered so failures are diagnosable
+- if the model hallucinates dumb shit, we patch it and move on
+- reproducibility beats aesthetics, but yes, we still keep the aesthetics
+
+This does not mean human commits are unwelcome.
+Please, contribute!
 
 ## Repo Map (So You Stop Guessing)
 
@@ -134,7 +148,7 @@ Use this flow unless you enjoy self-inflicted chaos:
 4. `bash scripts/run-iso-qemu.sh`
 
 If something broke, document what broke and how you fixed it.  
-“works now lol” is not documentation.
+“works now lol” is not documentation, it is a cry for help.
 
 ## Safety
 
